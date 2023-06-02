@@ -2,10 +2,10 @@
 package galaxyraiders.core.physics
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.util.Locale
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.sqrt
-import java.util.Locale
 
 const val ANGLE = 180.0
 
@@ -40,15 +40,15 @@ data class Vector2D(val dx: Double, val dy: Double) {
     get() = Vector2D(this.unit.dy, -this.unit.dx)
 
   operator fun times(scalar: Double): Vector2D {
-    var new_dx: Double = this.dx * scalar
-    var new_dy: Double = this.dy * scalar
-    return Vector2D(new_dx, new_dy)
+    var newDx: Double = this.dx * scalar
+    var newDy: Double = this.dy * scalar
+    return Vector2D(newDx, newDy)
   }
 
   operator fun div(scalar: Double): Vector2D {
-    var new_dx: Double = this.dx / scalar
-    var new_dy: Double = this.dy / scalar
-    return Vector2D(new_dx, new_dy)
+    var newDx: Double = this.dx / scalar
+    var newDy: Double = this.dy / scalar
+    return Vector2D(newDx, newDy)
   }
 
   operator fun times(v: Vector2D): Double {
@@ -56,27 +56,27 @@ data class Vector2D(val dx: Double, val dy: Double) {
   }
 
   operator fun plus(v: Vector2D): Vector2D {
-    var new_dx: Double = this.dx + v.dx
-    var new_dy: Double = this.dy + v.dy
-    return Vector2D(new_dx, new_dy)
+    var newDx: Double = this.dx + v.dx
+    var newDy: Double = this.dy + v.dy
+    return Vector2D(newDx, newDy)
   }
 
   operator fun plus(p: Point2D): Point2D {
-    var new_x: Double = p.x + this.dx
-    var new_y: Double = p.y + this.dy
-    return Point2D(new_x, new_y)
+    var newDx: Double = p.x + this.dx
+    var newDy: Double = p.y + this.dy
+    return Point2D(newDx, newDy)
   }
 
   operator fun unaryMinus(): Vector2D {
-    var new_dx: Double = -this.dx
-    var new_dy: Double = -this.dy
-    return Vector2D(new_dx, new_dy)
+    var newDx: Double = -this.dx
+    var newDy: Double = -this.dy
+    return Vector2D(newDx, newDy)
   }
 
   operator fun minus(v: Vector2D): Vector2D {
-    var new_dx: Double = this.dx - v.dx
-    var new_dy: Double = this.dy - v.dy
-    return Vector2D(new_dx, new_dy)
+    var newDx: Double = this.dx - v.dx
+    var newDy: Double = this.dy - v.dy
+    return Vector2D(newDx, newDy)
   }
 
   fun scalarProject(target: Vector2D): Double {
@@ -84,20 +84,20 @@ data class Vector2D(val dx: Double, val dy: Double) {
   }
 
   fun vectorProject(target: Vector2D): Vector2D {
-    var coef: Double = this.scalarProject(target)/target.magnitude
+    var coef: Double = this.scalarProject(target) / target.magnitude
     val vector: Vector2D = target.times(coef)
-    // Está ocorrendo um erro em um dos testes por causa de arredondamento e 
-    //um colega (Vitor de Melo) conseguiu resolver com o código abaixo:
+    // Está ocorrendo um erro em um dos testes por causa de arredondamento e
+    // um colega (Vitor de Melo) conseguiu resolver com o código abaixo:
     val result = Vector2D(
-      String.format(Locale.US, "%.2f",vector.dx).toDouble(),
-      String.format(Locale.US, "%.2f",vector.dy).toDouble()
+      String.format(Locale.US, "%.2f", vector.dx).toDouble(),
+      String.format(Locale.US, "%.2f", vector.dy).toDouble()
     )
     return result
   }
 }
 
 operator fun Double.times(v: Vector2D): Vector2D {
-  var new_dx: Double = this * v.dx
-  var new_dy: Double = this * v.dy
-  return Vector2D(new_dx, new_dy)
+  var newDx: Double = this * v.dx
+  var newDy: Double = this * v.dy
+  return Vector2D(newDx, newDy)
 }

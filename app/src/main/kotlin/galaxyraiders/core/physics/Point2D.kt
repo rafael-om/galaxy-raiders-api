@@ -6,15 +6,15 @@ import kotlin.math.sqrt
 
 data class Point2D(val x: Double, val y: Double) {
   operator fun plus(p: Point2D): Point2D {
-    var new_x: Double = this.x + p.x
-    var new_y: Double = this.y + p.y
-    return Point2D(new_x, new_y)
+    var newX: Double = this.x + p.x
+    var newY: Double = this.y + p.y
+    return Point2D(newX, newY)
   }
 
   operator fun plus(v: Vector2D): Point2D {
-    var new_x: Double = this.x + v.dx
-    var new_y: Double = this.y + v.dy
-    return Point2D(new_x, new_y)
+    var newX: Double = this.x + v.dx
+    var newY: Double = this.y + v.dy
+    return Point2D(newX, newY)
   }
 
   override fun toString(): String {

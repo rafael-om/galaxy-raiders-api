@@ -5,6 +5,7 @@ import galaxyraiders.ports.RandomGenerator
 import galaxyraiders.ports.ui.Controller
 import galaxyraiders.ports.ui.Controller.PlayerCommand
 import galaxyraiders.ports.ui.Visualizer
+import kotlin.math.pow
 import kotlin.system.measureTimeMillis
 
 const val MILLISECONDS_PER_SECOND: Int = 1000
@@ -26,6 +27,7 @@ class GameEngine(
   val generator: RandomGenerator,
   val controller: Controller,
   val visualizer: Visualizer,
+  val scoreCount: Score
 ) {
   val field = SpaceField(
     width = GameEngineConfig.spaceFieldWidth,
@@ -82,12 +84,47 @@ class GameEngine(
     this.moveSpaceObjects()
     this.trimSpaceObjects()
     this.generateAsteroids()
+    this.changeCyclesExplosions()
+  }
+
+  fun increaseScore(asteroid: Asteroid) {
+    this.scoreCount.score += asteroid.mass.pow(2) / asteroid.radius
+    this.scoreCount.asteroidsDestroyed += 1
+  }
+
+  fun changeCyclesExplosions() {
+    for (explosion in this.field.explosions) {
+      explosion.decreaseCyclesRemaining()
+      if (explosion.explosionEnded()) {
+        this.field.explosions.remove(explosion)
+      }
+    }
+  }
+
+  private fun isMissile(objectt) {
+    return objectt is Missile
+  }
+
+  private fun isAsteroid(objectt) {
+    return objectt is Asteroid
+  }
+
+  private fun missileAndAsteroidToExplosion(missile: Missile, asteroid: Asteroid) {
+    this.increaseScore(asteroid)
+    this.field.generateExplosion(asteroid)
+    this.field.deleteMissile(missile)
+    this.field.deleteAsteroid(asteroid)
   }
 
   fun handleCollisions() {
     this.field.spaceObjects.forEachPair {
         (first, second) ->
       if (first.impacts(second)) {
+        if (isMissile(first) && isAsteroid(second)) {
+          this.missileAndAsteroidToExplosion(first, second)
+        } else if (isMissile(second) && isAsteroid(first)) {
+          this.missileAndAsteroidToExplosion(second, first)
+        }
         first.collideWith(second, GameEngineConfig.coefficientRestitution)
       }
     }
