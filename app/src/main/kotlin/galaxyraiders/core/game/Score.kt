@@ -15,7 +15,7 @@ data class Score(
   // var asteroidsDestroyed: Int = asteroidsDestroyed
 
   fun addToScoreboard() {
-    val file = File("score/Scoreboard.json")
+    val file = File("../score/Scoreboard.json")
     val jsonContent = file.readText()
     val gson = Gson()
     val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
@@ -25,7 +25,7 @@ data class Score(
   }
 
   fun addToLeaderboard() {
-    val file = File("score/Leaderboard.json")
+    val file = File("../score/Leaderboard.json")
     val jsonContent = file.readText()
     val gson = Gson()
     val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
