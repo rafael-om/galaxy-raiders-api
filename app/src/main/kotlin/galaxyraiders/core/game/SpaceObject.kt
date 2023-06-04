@@ -13,6 +13,8 @@ open class SpaceObject(
   mass: Double
 ) :
   Object2D(initialPosition, initialVelocity, radius, mass) {
+  var colision = false
+
   override fun toString(): String {
     return "${this.type} at ${this.center}"
   }
@@ -22,5 +24,9 @@ open class SpaceObject(
     boundaryY: ClosedFloatingPointRange<Double>,
   ): Boolean {
     return boundaryX.contains(this.center.x) && boundaryY.contains(this.center.y)
+  }
+
+  fun collided(): Boolean {
+    return !colision
   }
 }

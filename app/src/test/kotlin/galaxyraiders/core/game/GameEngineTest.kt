@@ -1,5 +1,6 @@
 package galaxyraiders.core.game
 
+import galaxyraiders.core.game.Score
 import galaxyraiders.helpers.AverageValueGeneratorStub
 import galaxyraiders.helpers.ControllerSpy
 import galaxyraiders.helpers.MaxValueGeneratorStub
@@ -8,6 +9,7 @@ import galaxyraiders.helpers.VisualizerSpy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import java.time.LocalDateTime
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
@@ -20,23 +22,27 @@ class GameEngineTest {
   private val minGenerator = MinValueGeneratorStub()
   private val controllerSpy = ControllerSpy()
   private val visualizerSpy = VisualizerSpy()
+  private val scoreSpy = Score(0.0, 0, LocalDateTime.now())
 
   private val normalGame = GameEngine(
     generator = avgGenerator,
     controller = controllerSpy,
     visualizer = visualizerSpy,
+    scoreCount = scoreSpy,
   )
 
   private val easyGame = GameEngine(
     generator = maxGenerator,
     controller = controllerSpy,
     visualizer = visualizerSpy,
+    scoreCount = scoreSpy,
   )
 
   private val hardGame = GameEngine(
     generator = minGenerator,
     controller = controllerSpy,
     visualizer = visualizerSpy,
+    scoreCount = scoreSpy,
   )
 
   @Test

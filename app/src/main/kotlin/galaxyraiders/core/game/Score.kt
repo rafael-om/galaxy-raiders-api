@@ -18,7 +18,7 @@ data class Score(
     val file = File("score/Scoreboard.json")
     val jsonContent = file.readText()
     val gson = Gson()
-    val existingData: List<Person> = gson.fromJson(jsonContent, Array<Person>::class.java).toList()
+    val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
     val updatedData = existingData + this
     val updatedJsonContent = gson.toJson(updatedData)
     file.writeText(updatedJsonContent)
@@ -28,7 +28,8 @@ data class Score(
     val file = File("score/Leaderboard.json")
     val jsonContent = file.readText()
     val gson = Gson()
-    val existingData: List<Person> = gson.fromJson(jsonContent, Array<Person>::class.java).toList()
+    val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
+    var resultData: List<Score> = emptyList()
     var updatedData = existingData + this
     if (updatedData.size > MIN_SCORE) {
       var lowerScore: Double = Double.POSITIVE_INFINITY
@@ -39,9 +40,14 @@ data class Score(
           lowerObj = score
         }
       }
-      updatedData.remove(lowerObj)
+      for (score in updatedData) {
+        if (score != lowerObj) {
+          resultData = resultData + score
+        }
+      }
+      //updatedData.remove(lowerObj)
     }
-    val updatedJsonContent = gson.toJson(updatedData)
+    val updatedJsonContent = gson.toJson(resultData)
     file.writeText(updatedJsonContent)
   }
 }

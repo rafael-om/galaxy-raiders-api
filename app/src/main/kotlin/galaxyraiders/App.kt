@@ -10,6 +10,9 @@ import java.time.LocalDateTime
 import kotlin.concurrent.thread
 import kotlin.random.Random
 
+const val ZERO_DOUBLE = 0.0
+const val ZERO_INT = 0
+
 object AppConfig {
   val config = Config("GR__APP__")
 
@@ -30,7 +33,7 @@ fun main() {
   val (controller, visualizer) = ui.build()
 
   val scoreCount = Score(
-    0, 0, LocalDateTime.now()
+    ZERO_DOUBLE, ZERO_INT, LocalDateTime.now()
   )
 
   val gameEngine = GameEngine(

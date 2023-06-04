@@ -19,6 +19,6 @@ class Explosion(
   }
 
   fun explosionEnded(): Boolean {
-    return this.cyclesRemaining < 0
+    return !(this.cyclesRemaining < 0)
   }
 }
