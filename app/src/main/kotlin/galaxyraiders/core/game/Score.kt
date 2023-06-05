@@ -9,26 +9,30 @@ const val MIN_SCORE = 3
 data class Score(
   var score: Double,
   var asteroidsDestroyed: Int,
-  val date: LocalDateTime
+  var date: String
 ) {
   // var score: Double = score
   // var asteroidsDestroyed: Int = asteroidsDestroyed
 
   fun addToScoreboard() {
-    val file = File("../score/Scoreboard.json")
+    val file = File("Scoreboard.json")
+    file.createNewFile()
     val jsonContent = file.readText()
     val gson = Gson()
-    val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
-    val updatedData = existingData + this
+    var existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java)?.toList() ?: emptyList()
+    //val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
+    var updatedData = existingData + this
     val updatedJsonContent = gson.toJson(updatedData)
     file.writeText(updatedJsonContent)
   }
 
   fun addToLeaderboard() {
-    val file = File("../score/Leaderboard.json")
+    val file = File("Leaderboard.json")
+    file.createNewFile()
     val jsonContent = file.readText()
     val gson = Gson()
-    val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
+    val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java)?.toList() ?: emptyList()
+    //val existingData: List<Score> = gson.fromJson(jsonContent, Array<Score>::class.java).toList()
     var resultData: List<Score> = emptyList()
     var updatedData = existingData + this
     if (updatedData.size > MIN_SCORE) {

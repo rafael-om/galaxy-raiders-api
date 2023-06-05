@@ -6,6 +6,8 @@ import galaxyraiders.adapters.tui.TextUserInterface
 import galaxyraiders.adapters.web.WebUserInterface
 import galaxyraiders.core.game.GameEngine
 import galaxyraiders.core.game.Score
+//import java.lang.module
+import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import kotlin.concurrent.thread
 import kotlin.random.Random
@@ -21,6 +23,13 @@ object AppConfig {
 }
 
 fun main() {
+  //val protectionDomain = ::main.javaClass.protectionDomain
+  //val codeSource = protectionDomain.codeSource
+  //val location = codeSource.location
+  //val moduleName = ClassLoader.getSystemClassLoader().javaClass.module.name
+  //val moduleName = location.module
+  //println("Nome do módulo: $moduleName")
+
   val generator = BasicRandomGenerator(
     rng = Random(seed = AppConfig.randomSeed)
   )
@@ -32,8 +41,13 @@ fun main() {
 
   val (controller, visualizer) = ui.build()
 
+  val dateTime = LocalDateTime.now() // Obtém o LocalDateTime atual
+
+  val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") // Define o padrão desejado
+  val formattedDateTime = dateTime.format(formatter)
+
   val scoreCount = Score(
-    ZERO_DOUBLE, ZERO_INT, LocalDateTime.now()
+    ZERO_DOUBLE, ZERO_INT, formattedDateTime
   )
 
   val gameEngine = GameEngine(

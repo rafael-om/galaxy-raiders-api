@@ -9,6 +9,7 @@ import galaxyraiders.helpers.VisualizerSpy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -22,7 +23,10 @@ class GameEngineTest {
   private val minGenerator = MinValueGeneratorStub()
   private val controllerSpy = ControllerSpy()
   private val visualizerSpy = VisualizerSpy()
-  private val scoreSpy = Score(0.0, 0, LocalDateTime.now())
+  val dateTime = LocalDateTime.now() // Obtém o LocalDateTime atual
+  val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") // Define o padrão desejado
+  val formattedDateTime = dateTime.format(formatter)
+  private val scoreSpy = Score(0.0, 0, formattedDateTime)
 
   private val normalGame = GameEngine(
     generator = avgGenerator,
