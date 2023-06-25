@@ -43,6 +43,8 @@ dependencies {
   implementation("com.google.code.gson:gson:2.8.9")
   // Align versions of all Kotlin components
   implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+  
+  // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
   // Use the Kotlin JDK 8 standard library.
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

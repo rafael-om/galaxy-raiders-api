@@ -81,6 +81,12 @@ To execute any task, run:
 docker compose --profile dev run --rm demo gradle --no-daemon {task}
 ```
 
+## Observations
+
+The Score class created has more attributes than requested, and these attributes are also written to the json files. 
+
+To resolve this we could create another class with just the total score and the number of asteroids destroyed
+
 [1]: https://uspdigital.usp.br/jupiterweb/obterDisciplina?sgldis=MAC0218
 [2]: https://gradle.org
 [3]: https://kotlinlang.org
